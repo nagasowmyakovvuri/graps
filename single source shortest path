@@ -1,0 +1,55 @@
+#include <bits/stdc++.h>
+using namespace std;
+queue<int>q;
+void shortest_path(int node,vector<int>adj[],vector<int>&res,vector<int>&visited)
+{
+    q.push(node);
+    visited[node]=1;
+    if(node==1)
+    {
+        res[node-1]=0;
+    }
+    while(!q.empty())
+    {
+        int top=q.front();
+        q.pop();
+        
+   //    res[top]=min(res[top],res[top]+1);
+        for(auto i:adj[top])
+        {
+            if(visited[i]!=1)
+            {
+                q.push(i);
+                visited[i]=1;
+               // if(res[top-1]!=INT_MAX)
+                res[i-1]=res[top-1]+1;
+               // cout<<res[i];
+                //else
+                //res[i]=1;
+            }
+        }
+    }
+    
+}
+int main() {
+	// your code goes here
+	int n,e;
+	cin>>n>>e;
+	vector<int>adj[n+1];
+	for(int i=0;i<e;i++)
+	{
+	    int u,v;
+	    cin>>u>>v;
+	    adj[u].push_back(v);
+	    adj[v].push_back(u);
+	}
+	vector<int>visited(n+1,0);
+	vector<int>res(n,INT_MAX);
+//	res[0]=0;
+	shortest_path(1,adj,res,visited);
+	for(int i=0;i<res.size();i++)
+	{
+	    cout<<res[i]<<" ";
+	}
+
+}
