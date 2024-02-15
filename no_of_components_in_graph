@@ -1,0 +1,38 @@
+#include <bits/stdc++.h>
+using namespace std;
+void dfs(int node,vector<int>adj[],vector<bool>&visited)
+{
+    visited[node]=true;
+    for(auto i:adj[node])
+    {
+        if(!visited[i])
+        {
+            dfs(i,adj,visited);
+        }
+    }
+}
+int main() {
+	// your code goes here
+	int n,e;
+	cin>>n>>e;
+	vector<int>adj[n+1];
+	for(int i=0;i<e;i++)
+	{
+	    int u,v;
+	    cin>>u>>v;
+	    adj[u].push_back(v);
+	    adj[v].push_back(u);
+	}
+	vector<bool>visited(n+1,false);
+	int c=0;
+	for(int i=1;i<=n;i++)
+	{
+	    if(!visited[i])
+	    {
+	        dfs(i ,adj,visited);
+	        c++;
+	        
+	    }
+	}
+    cout<<c;
+}
