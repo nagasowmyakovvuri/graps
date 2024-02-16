@@ -1,0 +1,51 @@
+#include <bits/stdc++.h>
+using namespace std;
+queue<int>q;
+void bfs(int node,vector<int>adj[],vector<bool>&visited)
+{
+    visited[node]=true;
+    q.push(node);
+  // cout<<node;
+    while(!q.empty())
+    {
+      //  int n=q.size();
+         int top=q.front();
+         q.pop();
+         
+         cout<<top<<" ";
+        for(auto i:adj[top])
+        {
+             
+            if(!visited[i])
+            {
+              
+                visited[i]=true;
+                q.push(i);
+            }
+            
+        
+        }
+    }
+}
+int main() {
+	// your code goes here
+	int n,e;
+	cin>>n>>e;
+	vector<int>adj[n+1];
+	for(int i=0;i<n;i++)
+	{
+	    int u,v;
+	    cin>>u>>v;
+	    adj[u].push_back(v);
+	}
+	vector<bool>visited(n+1,false);
+    for(int i=1;i<=n;i++)
+    {
+        if(!visited[i])
+	bfs(i,adj,visited);
+    }
+	
+	
+	
+
+}
