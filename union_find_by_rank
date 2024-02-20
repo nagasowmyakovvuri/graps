@@ -1,0 +1,48 @@
+#include <bits/stdc++.h>
+using namespace std;
+int FindParent(int x,vector<int>parent)
+{
+    if(parent[x]==x)return x;
+    x=parent[x];
+    return parent[x]=FindParent(x,parent);
+}
+void union1(int x,int y,vector<int>&parent,vector<int>&rank)
+{
+    int px=FindParent(x,parent);
+    int py=FindParent(y,parent);
+    if(rank[px]==rank[py])
+    {
+        parent[py]=px;
+        rank[px]++;
+    }
+    else if(rank[px]>rank[py])
+    {
+        parent[py]=px;
+    }
+    else 
+    parent[px]=py;
+    
+    
+}
+int main() {
+	// your code goes here
+	int n;
+	cin>>n;
+	vector<int>parent(n+1);
+	for(int i=1;i<=n;i++)
+	{
+	    parent[i]=i;
+	}
+	vector<int>rank(n+1,0);
+	union1(1,3,parent,rank);
+	union1(3,5,parent,rank);
+	union1(4,2,parent,rank);
+	if(FindParent(1,parent)==FindParent(2,parent))
+	{
+	    cout<<"Same";
+	}
+	else cout<<"not same";
+	
+	
+	return 0;
+}
